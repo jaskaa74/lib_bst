@@ -29,6 +29,38 @@ public:
         return this;
     }
 
+    Node* insertI(int k) {
+        if (this == nullptr) {
+            return new Node(k);
+        }
+
+        Node* current = this;
+        Node* parent = nullptr;
+
+        while (current != nullptr) {
+            parent = current;
+            if (k == current->data) {
+                current->rip++;
+                return this;
+            }
+            else if (k < current->data) {
+                current = current->leftc;
+            }
+            else {
+                current = current->rightc;
+            }
+        }
+
+        if (k < parent->data) {
+            parent->leftc = new Node(k);
+        }
+        else {
+            parent->rightc = new Node(k);
+        }
+
+        return this;
+    }
+
     void inOrder() {
         if (this == nullptr) return;
 
@@ -56,7 +88,7 @@ public:
 
     }
 
-    Node* search(int k) {
+    Node* searchR(int k) {
         if (root == nullptr) {
             cout << "il numero non c'è" << endl;
             return nullptr;
@@ -85,7 +117,7 @@ public:
         return max(l, r) + 1;
     }
 
-    bool isBST(int min = INT_MIN, int max = INT_MAX) {
+    bool isBst(int min = INT_MIN, int max = INT_MAX) {
         if (this == nullptr) {
             return true;
         }
