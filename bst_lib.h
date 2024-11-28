@@ -4,12 +4,12 @@ using namespace std;
 class Node {
 private:
     int data;
-    int rip;
-    Node* leftc;
-    Node* rightc;
+    int weight;
+    Node* lchild;
+    Node* rchild;
 public:
     Node(int d) :
-        rip{ 1 }, data{ d }, rightc{ nullptr }, leftc{ nullptr } {};
+        weight{ 1 }, data{ d }, rchild{ nullptr }, lchild{ nullptr } {};
 
     Node* insertR(int k) {
         if (this == nullptr) {
@@ -17,13 +17,13 @@ public:
         }
 
         if (k == this->data) {
-            this->rip++;
+            this->weight++;
         }
         else if (k < this->data) {
-            this->leftc = this->leftc->insertR(k);
+            this->lchild = this->lchild->insertR(k);
         }
         else {
-            this->rightc = this->rightc->insertR(k);
+            this->rchild = this->rchild->insertR(k);
         }
 
         return this;
@@ -40,22 +40,22 @@ public:
         while (current != nullptr) {
             parent = current;
             if (k == current->data) {
-                current->rip++;
+                current->weight++;
                 return this;
             }
             else if (k < current->data) {
-                current = current->leftc;
+                current = current->lchild;
             }
             else {
-                current = current->rightc;
+                current = current->rchild;
             }
         }
 
         if (k < parent->data) {
-            parent->leftc = new Node(k);
+            parent->lchild = new Node(k);
         }
         else {
-            parent->rightc = new Node(k);
+            parent->rchild = new Node(k);
         }
 
         return this;
@@ -64,9 +64,9 @@ public:
     void inOrder() {
         if (this == nullptr) return;
 
-        this->leftc->inOrder();
+        this->lchild->inOrder();
         cout << this->data << " ";
-        this->rightc->inOrder();
+        this->rchild->inOrder();
 
     }
 
@@ -74,16 +74,16 @@ public:
         if (this == nullptr) return;
 
         cout << this->data << " ";
-        this->leftc->inOrder();
-        this->rightc->inOrder();
+        this->lchild->inOrder();
+        this->rchild->inOrder();
 
     }
 
     void postOrder() {
         if (this == nullptr) return;
 
-        this->leftc->inOrder();
-        this->rightc->inOrder();
+        this->lchild->inOrder();
+        this->rchild->inOrder();
         cout << this->data << " ";
 
     }
@@ -95,14 +95,14 @@ public:
         }
 
         if (k == this->data) {
-            cout << "il numero si trova: " << this << " ed è stato inserito " << this->rip << " volte" << endl;
+            cout << "il numero si trova: " << this << " ed è stato inserito " << this->weight << " volte" << endl;
             return this;
         }
         else if (k < this->data) {
-            return this->leftc->search(k);
+            return this->lchild->search(k);
         }
         else {
-            return this->rightc->search(k);
+            return this->rchild->search(k);
         }
 
         return this;
@@ -111,8 +111,8 @@ public:
     int height() {
         if (this == NULL) return 0;
 
-        int l = this->leftc->height();
-        int r = this->rightc->height();
+        int l = this->lchild->height();
+        int r = this->rchild->height();
 
         return max(l, r) + 1;
     }
@@ -126,7 +126,7 @@ public:
             return false;
         }
 
-        return this->leftc->isBST(min, this->data) && this->rightc->isBST(this->data, max);
+        return this->lchild->isBST(min, this->data) && this->rchild->isBST(this->data, max);
     }
 
 };
