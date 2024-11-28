@@ -88,15 +88,15 @@ public:
 
     }
 
-    Node* searchR(int k) {
-        if (root == nullptr) {
+    bool searchR(int k) {
+        if (this == nullptr) {
             cout << "il numero non c'è" << endl;
-            return nullptr;
+            return false;
         }
 
         if (k == this->data) {
             cout << "il numero si trova: " << this << " ed è stato inserito " << this->weight << " volte" << endl;
-            return this;
+            return true;
         }
         else if (k < this->data) {
             return this->lchild->search(k);
@@ -104,8 +104,30 @@ public:
         else {
             return this->rchild->search(k);
         }
+    }
 
-        return this;
+    bool searchI(int k) {
+        if (this == nullptr) {
+            cout << "il numero non c'è" << endl;
+            return false;
+        }
+
+        Node* current = this;
+
+        while (current != nullptr) {
+            if (k == current->data) {
+                cout << "il numero si trova: " << this << " ed è stato inserito " << this->weight << " volte" << endl;
+                return true;
+            }
+            else if (k < current->data) {
+                current = current->lchild;
+            }
+            else {
+                current = current->rchild;
+            }
+        }
+        cout << "il numero non c'è" << endl;
+        return false;
     }
 
     int height() {
