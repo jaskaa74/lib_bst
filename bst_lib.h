@@ -99,10 +99,10 @@ public:
             return true;
         }
         else if (k < this->data) {
-            return this->lchild->search(k);
+            return this->lchild->searchR(k);
         }
         else {
-            return this->rchild->search(k);
+            return this->rchild->searchR(k);
         }
     }
 
@@ -148,7 +148,7 @@ public:
             return false;
         }
 
-        return this->lchild->isBST(min, this->data) && this->rchild->isBST(this->data, max);
+        return this->lchild->isBst(min, this->data) && this->rchild->isBst(this->data, max);
     }
 
 };
