@@ -11,6 +11,8 @@ public:
     Node(int d) :
         weight{ 1 }, data{ d }, rchild{ nullptr }, lchild{ nullptr } {};
 
+friend ostream& operator<<(ostream& os, Node& r);
+
     Node* insertR(int k) {
         if (this == nullptr) {
             return new Node(k);
@@ -152,3 +154,8 @@ public:
     }
 
 };
+
+ostream& operator<<(ostream& os, Node& r) {
+    os << "key: " << r.data << endl << "weight: " << r.weight << endl << "lchild: " << r.lchild->data << endl << "rchild: " << r.rchild->data;
+    return os;
+}
