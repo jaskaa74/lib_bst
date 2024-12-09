@@ -13,6 +13,8 @@ public:
 
 friend ostream& operator<<(ostream& os, Node& r);
 
+friend istream& operator>>(istream& is, Node& r);
+
     Node* insertR(int k) {
         if (this == nullptr) {
             return new Node(k);
