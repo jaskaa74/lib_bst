@@ -9,11 +9,12 @@ private:
     Node* rchild;
 public:
     Node(int d) :
-        weight{ 1 }, data{ d }, rchild{ nullptr }, lchild{ nullptr } {};
+        weight{ 1 }, data{ d }, rchild{ nullptr }, lchild{ nullptr } {
+    };
 
-friend ostream& operator<<(ostream& os, Node& r);
+    friend ostream& operator<<(ostream& os, Node& r);
 
-friend istream& operator>>(istream& is, Node& r);
+    friend istream& operator>>(istream& is, Node& r);
 
     Node* insertR(int k) {
         if (this == nullptr) {
@@ -153,6 +154,44 @@ friend istream& operator>>(istream& is, Node& r);
         }
 
         return this->lchild->isBst(min, this->data) && this->rchild->isBst(this->data, max);
+    }
+
+    Node* deleteNode(int k) {
+        if (this == nullptr) {
+            return nullptr;
+        }
+
+        if (k < this->data) {
+            if (this->lchild != nullptr) {
+                this->lchild = this->lchild->deleteNode(k);
+            }
+        }
+        else if (k > this->data) {
+            if (this->rchild != nullptr) {
+                this->rchild = this->rchild->deleteNode(k);
+            }
+        }
+        else {
+            if (this->lchild == nullptr) {
+                Node* temp = this->rchild;
+                delete this;
+                return temp;
+            }
+            else if (this->rchild == nullptr) {
+                Node* temp = this->lchild;
+                delete this;
+                return temp;
+            }
+            else {
+                Node* temp = this->rchild;
+                while (temp->lchild != nullptr) {
+                    temp = temp->lchild;
+                }
+                this->data = temp->data;
+                this->rchild = this->rchild->deleteNode(temp->data);
+            }
+        }
+        return this;
     }
 
 };
