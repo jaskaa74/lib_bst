@@ -156,6 +156,25 @@ friend ostream& operator<<(ostream& os, Node& r);
 };
 
 ostream& operator<<(ostream& os, Node& r) {
-    os << "key: " << r.data << endl << "weight: " << r.weight << endl << "lchild: " << r.lchild->data << endl << "rchild: " << r.rchild->data;
+    os << "key: " << r.data << endl;
+    os << "weight: " << r.weight << endl;
+
+    if (r.lchild) {
+        os << "lchild: " << r.lchild->data << endl;
+    }
+    else {
+        os << "lchild: nullptr" << endl;
+    }
+    if (r.rchild) {
+        os << "rchild: " << r.rchild->data << endl;
+    }
+    else {
+        os << "rchild: nullptr" << endl;
+    }
     return os;
+}
+
+istream& operator>>(istream& is, Node& r) {
+    is >> r.data;
+    return is;
 }
